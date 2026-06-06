@@ -1,0 +1,11 @@
+# Legacy app-shape descriptor consumed by @theo/cli for validation
+# (per Plan v1.1 T1.2 / ADR D6 — theo.yaml stays in the transition window
+# for app validation; the upload payload uses .theo/services.json).
+project: theokit-example
+apps:
+  web:
+    path: .
+    framework: node
+    type: server
+    port: 3000
+    build: buildpack
