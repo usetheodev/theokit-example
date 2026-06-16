@@ -2,10 +2,11 @@
 # (per Plan v1.1 T1.2 / ADR D6 — theo.yaml stays in the transition window
 # for app validation; the upload payload uses .theo/services.json).
 #
-# Canonical 2026-06-16: `runtime: node` + `start: theokit start`. The
-# start command is required by the canonical Dockerfile generator
-# (api/internal/argo/canonical_dockerfile.go). Without it, build fails
-# at generate-dockerfile with "app 'web' has no declared start command".
+# Canonical 2026-06-16: start: `npm start` invokes the `start` script in
+# package.json (`theokit start`) via npm which adds `node_modules/.bin`
+# to PATH. The raw `theokit start` CMD fails at runtime because the
+# generated Dockerfile's CMD bypasses npm and the local bin isn't on
+# the system PATH.
 project: theokit-example
 apps:
   web:
@@ -13,5 +14,5 @@ apps:
     runtime: node
     type: server
     port: 3000
-    start: theokit start
+    start: npm start
     build: buildpack
