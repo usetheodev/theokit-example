@@ -1,11 +1,17 @@
 # Legacy app-shape descriptor consumed by @theo/cli for validation
 # (per Plan v1.1 T1.2 / ADR D6 — theo.yaml stays in the transition window
 # for app validation; the upload payload uses .theo/services.json).
+#
+# Canonical 2026-06-16: `runtime: node` per Plan B v3.1 + simplify-deploy-
+# theokit-only T2.1 / F-dom-2. The legacy `framework` field was removed —
+# runtime is the build-strategy key (python | node) consumed by
+# autodeploy_adapters.go:67. validate-workspace rejects "unsupported" when
+# this field is absent or under the wrong key.
 project: theokit-example
 apps:
   web:
     path: .
-    framework: node
+    runtime: node
     type: server
     port: 3000
     build: buildpack
