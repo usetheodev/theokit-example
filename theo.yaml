@@ -2,11 +2,10 @@
 # (per Plan v1.1 T1.2 / ADR D6 — theo.yaml stays in the transition window
 # for app validation; the upload payload uses .theo/services.json).
 #
-# Canonical 2026-06-16: `runtime: node` per Plan B v3.1 + simplify-deploy-
-# theokit-only T2.1 / F-dom-2. The legacy `framework` field was removed —
-# runtime is the build-strategy key (python | node) consumed by
-# autodeploy_adapters.go:67. validate-workspace rejects "unsupported" when
-# this field is absent or under the wrong key.
+# Canonical 2026-06-16: `runtime: node` + `start: theokit start`. The
+# start command is required by the canonical Dockerfile generator
+# (api/internal/argo/canonical_dockerfile.go). Without it, build fails
+# at generate-dockerfile with "app 'web' has no declared start command".
 project: theokit-example
 apps:
   web:
@@ -14,4 +13,5 @@ apps:
     runtime: node
     type: server
     port: 3000
+    start: theokit start
     build: buildpack
