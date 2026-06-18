@@ -9,7 +9,12 @@
 # the system PATH.
 project: theokit-example
 apps:
-  web:
+  # Renamed from `web` — `web` is a reserved theokit service name (RESERVED_SERVICE_NAMES).
+  # The matching `app` entry in theo.config.ts services makes services.json carry the
+  # `runtime: node` field that the CLI consumes (F-dom-2). Tracked alongside upstream
+  # issue https://github.com/usetheodev/theokit/issues/9 — restore canonical
+  # convention once that lands.
+  app:
     path: .
     runtime: node
     framework: node

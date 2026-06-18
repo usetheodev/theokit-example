@@ -7,4 +7,22 @@ import { defineConfig } from 'theokit'
 // use the documented v1 path (no top-level `name`) with services
 // declared explicitly so services.json carries a populated `services[]`
 // instead of being empty.
-export default defineConfig({})
+export default defineConfig({
+  // Declare the app service so services.json carries `runtime: node`.
+  // CLI parseServicesRuntimes reads this and the build pipeline dispatches
+  // on it (F-dom-2). Cannot use the conventional `web` name — it is reserved
+  // in theokit's RESERVED_SERVICE_NAMES.
+  services: {
+    app: {
+      runtime: 'node',
+      type: 'server',
+      port: 3001,
+      proxy: '/app',
+      dev: 'echo theokit-managed',
+      start: 'echo theokit-managed',
+      healthcheck: '/health',
+      cors: false,
+      passSetCookie: false,
+    },
+  },
+})
