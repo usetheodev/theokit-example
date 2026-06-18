@@ -1,7 +1,7 @@
 {
   "name": "theokit-example",
   "version": "0.1.0",
-  "description": "Realistic TheoKit demo \u2014 chat with real LLM, todos API, observability endpoints. Used to exercise the full deploy pipeline (theokit build \u2192 services.json v2 \u2192 @theo/cli deploy \u2192 TheoCloud live HTTP 200).",
+  "description": "Realistic TheoKit demo — chat with real LLM, todos API, observability endpoints. Used to exercise the full deploy pipeline (theokit build → services.json v2 → @theo/cli deploy → TheoCloud live HTTP 200).",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,7 +14,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.0.0",
-    "theokit": "^0.5.4",
+    "theokit": "^0.6.0",
     "zod": "^4.0.0"
   },
   "devDependencies": {

@@ -12,6 +12,7 @@ apps:
   web:
     path: .
     runtime: node
+    framework: node
     type: server
     port: 3000
     start: npm start
