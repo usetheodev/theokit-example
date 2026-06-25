@@ -5,23 +5,13 @@
     {
       "name": "app",
       "runtime": "node",
+      "type": "server",
       "port": 3000,
-      "proxy": "public",
-      "dev": {
-        "cmd": "npm run dev"
-      },
-      "start": {
-        "cmd": "npm start"
-      },
-      "healthcheck": {
-        "path": "/health"
-      },
-      "cors": {
-        "enabled": true,
-        "origins": [
-          "*"
-        ]
-      },
+      "proxy": "/api",
+      "dev": "npm run dev",
+      "start": "npm run start",
+      "healthcheck": "/api/health",
+      "cors": false,
       "passSetCookie": false
     }
   ]
