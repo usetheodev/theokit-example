@@ -3,7 +3,7 @@
   "project": "theokit-example",
   "services": [
     {
-      "name": "server",
+      "name": "app",
       "runtime": "node",
       "type": "server",
       "port": 3000,

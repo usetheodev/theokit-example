@@ -2,16 +2,23 @@
 # (per Plan v1.1 T1.2 / ADR D6 — theo.yaml stays in the transition window
 # for app validation; the upload payload uses .theo/services.json).
 #
-# Canonical 2026-06-16: `runtime: node` per Plan B v3.1 + simplify-deploy-
-# theokit-only T2.1 / F-dom-2. The legacy `framework` field was removed —
-# runtime is the build-strategy key (python | node) consumed by
-# autodeploy_adapters.go:67. validate-workspace rejects "unsupported" when
-# this field is absent or under the wrong key.
+# Canonical 2026-06-16: start: `npm start` invokes the `start` script in
+# package.json (`theokit start`) via npm which adds `node_modules/.bin`
+# to PATH. The raw `theokit start` CMD fails at runtime because the
+# generated Dockerfile's CMD bypasses npm and the local bin isn't on
+# the system PATH.
 project: theokit-example
 apps:
-  web:
+  # Renamed from `web` — `web` is a reserved theokit service name (RESERVED_SERVICE_NAMES).
+  # The matching `app` entry in theo.config.ts services makes services.json carry the
+  # `runtime: node` field that the CLI consumes (F-dom-2). Tracked alongside upstream
+  # issue https://github.com/usetheodev/theokit/issues/9 — restore canonical
+  # convention once that lands.
+  app:
     path: .
     runtime: node
+    framework: node
     type: server
     port: 3000
+    start: npm start
     build: buildpack
