@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "project": "theokit-example",
+  "services": [
+    {
+      "name": "server",
+      "runtime": "node",
+      "type": "server",
+      "port": 3000,
+      "proxy": "/api",
+      "dev": "npm run dev",
+      "start": "npm run start",
+      "healthcheck": "/api/health",
+      "cors": false,
+      "passSetCookie": false
+    }
+  ]
+}
