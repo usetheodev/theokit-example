@@ -12,7 +12,10 @@ import { defineRoute } from 'theokit/server'
 // routes/api/slow.ts would double-prefix to /api/api/slow.
 export const GET = defineRoute({
   handler: async (req: Request) => {
-    const url = new URL(req.url)
+    // `req.url` arrives as a relative path (theokit fastify-style) so the
+    // bare `new URL(req.url)` throws TypeError "Invalid URL". Pass a base
+    // origin so the parse succeeds regardless of inbound scheme/host.
+    const url = new URL(req.url, 'http://localhost')
     const rawSleep = url.searchParams.get('sleep') ?? '0'
     const sleep = Math.min(Math.max(parseInt(rawSleep, 10) || 0, 0), 300)
     if (sleep > 0) {
