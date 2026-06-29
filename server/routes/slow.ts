@@ -8,8 +8,8 @@ import { defineRoute } from 'theokit/server'
 // ~61s post the writeTimeout=60s → 300s bump in
 // theo/infra/helm/traefik/values.yaml.
 //
-// theokit 0.4+ requires directory-nested route form (routes/api/slow.ts)
-// — dotted-basename form is rejected at build time.
+// theokit 0.4+ maps routes/<name>.ts → /api/<name>. A nested
+// routes/api/slow.ts would double-prefix to /api/api/slow.
 export const GET = defineRoute({
   handler: async (req: Request) => {
     const url = new URL(req.url)
