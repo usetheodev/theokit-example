@@ -11,12 +11,10 @@ import { defineRoute } from 'theokit/server'
 // theokit 0.4+ maps routes/<name>.ts → /api/<name>. A nested
 // routes/api/slow.ts would double-prefix to /api/api/slow.
 export const GET = defineRoute({
-  handler: async (req: Request) => {
-    // `req.url` arrives as a relative path (theokit fastify-style) so the
-    // bare `new URL(req.url)` throws TypeError "Invalid URL". Pass a base
-    // origin so the parse succeeds regardless of inbound scheme/host.
-    const url = new URL(req.url, 'http://localhost')
-    const rawSleep = url.searchParams.get('sleep') ?? '0'
+  handler: async ({ query }: { query: Record<string, string> }) => {
+    // theokit's handler signature is { query, body, params, request } —
+    // query is the pre-parsed search-params object (NOT a raw Request).
+    const rawSleep = query?.sleep ?? '0'
     const sleep = Math.min(Math.max(parseInt(rawSleep, 10) || 0, 0), 300)
     if (sleep > 0) {
       await new Promise((resolve) => setTimeout(resolve, sleep * 1000))
