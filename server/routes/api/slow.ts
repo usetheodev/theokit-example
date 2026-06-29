@@ -7,6 +7,9 @@ import { defineRoute } from 'theokit/server'
 // to prove the customer-app entryPoint no longer cuts long responses at
 // ~61s post the writeTimeout=60s → 300s bump in
 // theo/infra/helm/traefik/values.yaml.
+//
+// theokit 0.4+ requires directory-nested route form (routes/api/slow.ts)
+// — dotted-basename form is rejected at build time.
 export const GET = defineRoute({
   handler: async (req: Request) => {
     const url = new URL(req.url)
